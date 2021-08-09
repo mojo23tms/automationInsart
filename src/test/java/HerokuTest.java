@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -157,11 +158,15 @@ public class HerokuTest {
     //TO DO add a test which goes to http://the-internet.herokuapp.com/jqueryui/menu URL and
     //goes to Enabled-Download-Excel and clicks it
     //verify that the file is downloaded
-    public void testDownloadFile(){
+    public void testDownloadFile() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("http://the-internet.herokuapp.com/jqueryui/menu");
-        
-        isFileDownloaded("C:\\Users\\j_brink\\Downloads", "menu.xls");
+        driver.findElement(By.cssSelector("a[id=ui-id-2]")).click();
+        driver.findElement(By.cssSelector("a[id=ui-id-4]")).click();
+        driver.findElement(By.cssSelector("a[id=ui-id-8]")).click();
+        Thread.sleep(2000);
+        assertTrue(isFileDownloaded("C:\\Users\\j_brink\\Downloads", "menu.xls"));
+        driver.quit();
     }
 }
